@@ -241,19 +241,27 @@ def identify_sdk_version(self):
     sdk_version = None
     set_sdk_state(False)
     # Let's grab the adb version
-    with contextlib.suppress(Exception):
+    try:
         if get_adb():
             theCmd = f"\"{get_adb()}\" --version"
             response = run_shell(theCmd)
+            debug(f"identify_sdk_version:theCmd: {theCmd}")
+            debug(f"identify_sdk_version:response.stdout: {response.stdout}")
+            debug(f"identify_sdk_version:response.stderr: {response.stderr}")
             if response.stdout:
                 # Split lines based on mixed EOL formats
                 lines = re.split(r'\r?\n', response.stdout)
                 for line in lines:
+                    debug(f"identify_sdk_version:line: {line}")
                     if 'Version' in line:
                         sdk_version = line.split()[1]
+                        debug(f"identify_sdk_version:sdk_version: {sdk_version}")
                         set_sdk_version(sdk_version)
                         # If version is old treat it as bad SDK
                         sdkver = sdk_version.split("-")[0]
+                        debug(f"identify_sdk_version:sdkver: {sdkver}")
+                        debug(f"identify_sdk_version:parse(sdkver): {parse(sdkver)}")
+                        debug(f"identify_sdk_version:parse(SDKVERSION): {parse(SDKVERSION)}")
                         if parse(sdkver) < parse(SDKVERSION):
                             print(f"\n{datetime.now():%Y-%m-%d %H:%M:%S} ERROR: Detected older Android Platform Tools version {sdk_version}")
                             # confirm if you want to use older version
@@ -290,7 +298,12 @@ def identify_sdk_version(self):
                         #     result = dlg.ShowModal()
                         #     break
                         else:
+                            debug("identify_sdk_version:: Should be good")
                             set_sdk_state(True)
+    except Exception as e:
+        print(f"\n{datetime.now():%Y-%m-%d %H:%M:%S} ERROR: Encountered an error.")
+        print(e)
+
     self.update_widget_states()
     if get_sdk_state():
         return
