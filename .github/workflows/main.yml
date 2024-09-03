@@ -310,7 +310,7 @@ jobs:
 
       # Download the Windows artifact from the build_windows job
       - name: Download Windows Artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
         with:
           name: PixelFlasher.exe
           path: dist-windows
@@ -318,7 +318,7 @@ jobs:
 
       # Download the Windows-2019 artifact from the build_windows_2019 job
       - name: Download Windows-2019 Artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
         with:
           name: PixelFlasher_Win_2019.exe
           path: dist-windows-2019
@@ -326,7 +326,7 @@ jobs:
 
       # Download the Ubuntu_20_04 artifact from the build_ubuntu_20_04 job
       - name: Download Ubuntu_20_04 Artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
         with:
           name: PixelFlasher_Ubuntu_20_04
           path: dist-ubuntu_20_04
@@ -334,7 +334,7 @@ jobs:
 
       # Download the Ubuntu_22_04 artifact from the build_ubuntu_22_04 job
       - name: Download Ubuntu_22_04 Artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
         with:
           name: PixelFlasher_Ubuntu_22_04
           path: dist-ubuntu_22_04
@@ -342,7 +342,7 @@ jobs:
 
       # Download the Mac-OS artifacts from the build_mac_11 job
       - name: Download Mac-OS Artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
         with:
           name: PixelFlasher.dmg
           path: dist-mac_11
